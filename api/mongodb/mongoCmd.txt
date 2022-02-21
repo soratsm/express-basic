@@ -1,0 +1,24 @@
+// アクセス
+mongo
+
+// アクセス制御
+use admin
+
+db.createUser({
+  user: "admin",
+  pwd: "pass",
+  roles: [{role: "userAdminAnyDatabase", db: "admin"}]
+})
+
+db.system.users.find()
+
+** mongod.cfg **下記追記
+security:
+  authorization: enabled
+
+** サービスからmongoを再起動**
+
+// ログイン
+db.auth("admin","pass")
+もしくは
+mongo -u admin -p pass -authenticationDatabase *db*
